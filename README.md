@@ -1,1 +1,1 @@
-# JournalKit
+# Journal Kit
