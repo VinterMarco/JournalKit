@@ -8,11 +8,13 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @EnvironmentObject var notebookManger : NotebookViewModel
+    
+   
+    
     var body: some View {
-        VStack {
-            Text("New app")
-        }
-        .padding()
+        NavigationView()
     }
 }
 
