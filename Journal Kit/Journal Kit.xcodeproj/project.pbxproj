@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A18D048E2B654BB4009E2602 /* PhotoPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18D048D2B654BB4009E2602 /* PhotoPickerViewModel.swift */; };
 		A1975D1D2B61706B00A0C749 /* Journal_KitApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1975D1C2B61706B00A0C749 /* Journal_KitApp.swift */; };
 		A1975D1F2B61706B00A0C749 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1975D1E2B61706B00A0C749 /* ContentView.swift */; };
 		A1975D212B61706C00A0C749 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1975D202B61706C00A0C749 /* Assets.xcassets */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A18D048D2B654BB4009E2602 /* PhotoPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPickerViewModel.swift; sourceTree = "<group>"; };
 		A1975D192B61706B00A0C749 /* Journal Kit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Journal Kit.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1975D1C2B61706B00A0C749 /* Journal_KitApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Journal_KitApp.swift; sourceTree = "<group>"; };
 		A1975D1E2B61706B00A0C749 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -103,6 +105,7 @@
 			isa = PBXGroup;
 			children = (
 				A1975D342B617A5000A0C749 /* NotebookViewModel.swift */,
+				A18D048D2B654BB4009E2602 /* PhotoPickerViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -187,6 +190,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A1975D1F2B61706B00A0C749 /* ContentView.swift in Sources */,
+				A18D048E2B654BB4009E2602 /* PhotoPickerViewModel.swift in Sources */,
 				A1975D1D2B61706B00A0C749 /* Journal_KitApp.swift in Sources */,
 				A1975D332B61790D00A0C749 /* NotebookModel.swift in Sources */,
 				A1975D2E2B61734200A0C749 /* JournalEntryModel.swift in Sources */,

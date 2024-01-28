@@ -8,33 +8,161 @@
 //
 
 import SwiftUI
+import PhotosUI
 
 struct WriteMainView: View {
     
+    @StateObject private var photoPickerManager = PhotoPickerViewModel()
+    
+    
+    ///
+    ///
+    
+    
     @State private var title : String = ""
-//  @State private var text : String = "We walked along the cost of Bristol. I remember that it was sunny and the smell of salt an her sweet parfume ..."
-    @State private var text : String = "Write your memories..."
+    @State private var titleForNew : String = ""
+    @State private var openSheet : Bool = false
+    @State private var selectedNotebook : String = "Chocolate"
+    @State private var typeOfNotebook : String = "New"
+    //  @State private var text : String = "We walked along the cost of Bristol. I remember that it was sunny and the smell of salt an her sweet parfume ..."
+    @State private var text : String = ""
+    @State private var textForNew : String = ""
     var body: some View {
-        ZStack {
+        NavigationStack {
             VStack {
-                VStack {
-                    TextField("Title...", text: $title)
-                        .padding()
-                        .background(Color(red: 0.97, green: 0.97, blue: 0.97))
-                    TextEditor(text: $text)
-                        .padding()
-                        .colorMultiply(Color(red: 0.97, green: 0.97, blue: 0.97))
-                        .cornerRadius(10)
-                        .foregroundColor(text == "Write your memories..." ? .gray : .black)
-                    Button("Sent") {
-                        
+                VStack (alignment:.leading) {
+                    Section {
+                        //                        PhotosPicker(selection: $photoPickerManager.imagesSelection, matching: .images) {
+                        //                            HStack {
+                        //                                Image(systemName: "photo.on.rectangle")
+                        //                                    .foregroundStyle(.white)
+                        //                                Text("Add Pictures")
+                        //                                    .foregroundStyle(.white)
+                        //                            }
+                        //                        }
                     }
+                    
+                    Section {
+                        if !photoPickerManager.selectedImages.isEmpty {
+                            ScrollView(.horizontal, showsIndicators: false) {
+                                HStack {
+                                    ForEach(photoPickerManager.selectedImages, id: \.self) { image in
+                                        Image(uiImage: image)
+                                            .resizable()
+                                            .scaledToFill()
+                                            .frame(width: 100, height: 100)
+                                            .clipShape(.rect(cornerRadius: 10))
+                                            .overlay {
+                                                //                                                Rectangle()
+                                                //                                                    .fill(.red)
+                                                //                                                    .frame(width: 10, height : 10)
+                                                VStack {
+                                                    HStack {
+                                                        VStack {
+                                                            Image(systemName: "xmark.square.fill")
+                                                            Spacer()
+                                                        }
+                                                        Spacer()
+                                                    }
+                                                }
+                                                //                                                .background(.green)
+                                                .frame(width: .infinity, height: .infinity)
+                                                .onTapGesture {
+                                                    photoPickerManager.deleteImage(image)
+                                                    print("tapped red \(image)")
+                                                }
+                                                
+                                            }
+                                        
+                                    }
+                                    
+                                }
+                            }
+                        }
+                    }
+                    
+                    
+                    
+                    Text("New or existing notebook")
+                        .foregroundColor(Color.white)
+                    //                        .foregroundStyle(Color(red: 0.50, green: 0.50, blue: 0.50))
+                        .offset(y:10)
+                        .fontWeight(.regular)
+                        .padding()
+                    Picker("", selection: $typeOfNotebook) {
+                        Text("New").tag("New")
+                        Text("Existing").tag("Existing")
+                    }
+                    .pickerStyle(.segmented)
+                    
                 }
                 .padding()
-                .background(Color(red: 0.97, green: 0.97, blue: 0.97))
+                List {
+                    if typeOfNotebook == "Existing" {
+                        Section (header:
+                                    Text("My Notebooks")
+                            .foregroundColor(Color.white)
+                        ){
+                            Picker("Selected Noteboook", selection: $selectedNotebook) {
+                                Text("Chocolate").tag("Chocolate")
+                                Text("Vanilla").tag("Vanilla")
+                                Text("Strawberry").tag("Strawberry")
+                            }
+                            .foregroundStyle(.black)
+                            .pickerStyle(.menu)
+                        }
+                        
+                        .listRowBackground(Color.white)
+                        
+                    }
+                    Section (header:
+                                Text("Title")
+                        .foregroundColor(Color.white)
+                    ) {
+                        TextField("", text: typeOfNotebook == "New" ?  $titleForNew : $title)
+                        
+                    }
+                    .listRowBackground(Color.white)
+                    
+                    Section (header:
+                                Text("Write your story")
+                        .foregroundColor(Color.white)
+                    ) {
+                        TextEditor(text: typeOfNotebook == "New" ?  $textForNew : $text)
+                            .frame(minHeight: typeOfNotebook == "New" ? UIScreen.main.bounds.height / 4 : UIScreen.main
+                                .bounds.height / 8 ) // Set the minimum height here
+                    }
+                    .listRowBackground(Color.white)
+                }
+                .scrollContentBackground(.hidden)
+                .background(.clear)
                 .clipShape(.rect(cornerRadius: 44))
             }
-            .padding()
+            .background(Color.black)
+            .onAppear {
+                // code to come
+            }
+            .navigationTitle("Write")
+            .navigationBarTitleDisplayMode(.large)
+            .toolbar {
+                HStack {
+                    PhotosPicker(selection: $photoPickerManager.imagesSelection, matching: .images) {
+                        HStack {
+                            Image(systemName: "photo.on.rectangle")
+                                .foregroundStyle(.orange)
+                        }
+                    }
+                    Button {
+                        openSheet.toggle()
+                    } label: {
+                        Image(systemName: "square.and.pencil")
+                            .foregroundStyle(.orange)
+                    }
+                }
+            }
+        }
+        .sheet(isPresented: $openSheet) {
+            Text("Sheet")
         }
     }
 }
@@ -42,4 +170,5 @@ struct WriteMainView: View {
 #Preview {
     WriteMainView()
 }
+
 

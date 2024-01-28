@@ -15,7 +15,8 @@ struct Journal_KitApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .preferredColorScheme(.light)
+                .preferredColorScheme(.dark)
+                .tint(.orange)
                 .environmentObject(notebookManger)
         }
     }
