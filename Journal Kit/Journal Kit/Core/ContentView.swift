@@ -6,12 +6,15 @@
 //
 
 import SwiftUI
+import Firebase
+
 
 struct ContentView: View {
     
-    @EnvironmentObject var notebookManger : NotebookViewModel
+//    @EnvironmentObject var notebookManger : NotebookViewModel
     
    
+ 
     
     var body: some View {
         NavigationView()

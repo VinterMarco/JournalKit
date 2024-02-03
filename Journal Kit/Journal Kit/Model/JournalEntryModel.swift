@@ -6,11 +6,14 @@
 //
 
 import Foundation
+import UIKit
 
 
 struct JournalEntryModel : Identifiable, Codable  {
     var id = UUID()
     var title : String
     var entry : String
-    var date: Date 
+    var date : Date
+    var images : [String?]
+    
 }

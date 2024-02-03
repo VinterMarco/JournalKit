@@ -6,11 +6,20 @@
 //
 
 import SwiftUI
+import Firebase
+
 
 @main
 struct Journal_KitApp: App {
     
     @StateObject var notebookManger = NotebookViewModel()
+
+    
+    init() {
+          FirebaseApp.configure()
+      }
+
+    
 
     var body: some Scene {
         WindowGroup {

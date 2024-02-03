@@ -8,7 +8,9 @@
 import Foundation
 
 
-class NotebookModel : Identifiable, Codable  {
-    var id : String
+struct NotebookModel : Identifiable, Codable  {
+    var id = UUID()
+    var notebookTitle : String
     var allJournalEntries : [JournalEntryModel] = []
+        
 }

@@ -13,10 +13,8 @@ import PhotosUI
 struct WriteMainView: View {
     
     @StateObject private var photoPickerManager = PhotoPickerViewModel()
+    @EnvironmentObject var notebookManager : NotebookViewModel
     
-    
-    ///
-    ///
     
     
     @State private var title : String = ""
@@ -31,16 +29,6 @@ struct WriteMainView: View {
         NavigationStack {
             VStack {
                 VStack (alignment:.leading) {
-                    Section {
-                        //                        PhotosPicker(selection: $photoPickerManager.imagesSelection, matching: .images) {
-                        //                            HStack {
-                        //                                Image(systemName: "photo.on.rectangle")
-                        //                                    .foregroundStyle(.white)
-                        //                                Text("Add Pictures")
-                        //                                    .foregroundStyle(.white)
-                        //                            }
-                        //                        }
-                    }
                     
                     Section {
                         if !photoPickerManager.selectedImages.isEmpty {
@@ -53,19 +41,16 @@ struct WriteMainView: View {
                                             .frame(width: 100, height: 100)
                                             .clipShape(.rect(cornerRadius: 10))
                                             .overlay {
-                                                //                                                Rectangle()
-                                                //                                                    .fill(.red)
-                                                //                                                    .frame(width: 10, height : 10)
                                                 VStack {
                                                     HStack {
                                                         VStack {
                                                             Image(systemName: "xmark.square.fill")
+                                                                .foregroundStyle(.red)
                                                             Spacer()
                                                         }
                                                         Spacer()
                                                     }
                                                 }
-                                                //                                                .background(.green)
                                                 .frame(width: .infinity, height: .infinity)
                                                 .onTapGesture {
                                                     photoPickerManager.deleteImage(image)
@@ -73,9 +58,7 @@ struct WriteMainView: View {
                                                 }
                                                 
                                             }
-                                        
                                     }
-                                    
                                 }
                             }
                         }
@@ -120,7 +103,7 @@ struct WriteMainView: View {
                         .foregroundColor(Color.white)
                     ) {
                         TextField("", text: typeOfNotebook == "New" ?  $titleForNew : $title)
-                        
+                            .foregroundColor(Color.black)
                     }
                     .listRowBackground(Color.white)
                     
@@ -130,7 +113,9 @@ struct WriteMainView: View {
                     ) {
                         TextEditor(text: typeOfNotebook == "New" ?  $textForNew : $text)
                             .frame(minHeight: typeOfNotebook == "New" ? UIScreen.main.bounds.height / 4 : UIScreen.main
-                                .bounds.height / 8 ) // Set the minimum height here
+                                .bounds.height / 8 )
+                            .foregroundColor(Color.black)
+                        
                     }
                     .listRowBackground(Color.white)
                 }
@@ -153,16 +138,25 @@ struct WriteMainView: View {
                         }
                     }
                     Button {
+                        print(photoPickerManager.selectedImages)
+                        print(type(of: photoPickerManager.selectedImages))
+                        notebookManager.addNotebookToDB(notebook: NotebookModel(
+                            notebookTitle: "",
+                            allJournalEntries: [JournalEntryModel(title: "test", entry: "sdsdsdf", date: Date.now, images: ["image 1"])]))
                         openSheet.toggle()
                     } label: {
-                        Image(systemName: "square.and.pencil")
+                        Image(systemName: "folder.fill.badge.plus")
                             .foregroundStyle(.orange)
                     }
                 }
             }
         }
         .sheet(isPresented: $openSheet) {
-            Text("Sheet")
+            SendJournalNotes()
+                .toolbar {
+                    
+                }
+                .presentationDetents([.height(80)])
         }
     }
 }

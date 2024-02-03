@@ -10,7 +10,7 @@ import SwiftUI
 struct NavigationView: View {
     var body: some View {
         TabView {
-            Text("View 1")
+            Notebooks()
                 .tabItem {
                     Label("Noterbooks", systemImage: "list.dash")
                 }
